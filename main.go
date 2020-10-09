@@ -11,14 +11,14 @@ import(
 type templateHandler struct {
 	once sync.Once
 	filename string
-	templ *template.Template
+	template *template.Template
 }
 
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t.once.Do(func() {
-		t.templ = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
+		t.template = template.Must(template.ParseFiles(filepath.Join("templates", t.filename)))
 	})
-	t.templ.Execute(w, nil)
+	t.template.Execute(w, nil)
 }
 
 func main() {
